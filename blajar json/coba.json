@@ -1,0 +1,18 @@
+[
+{ 
+    "nama" : "Desy Reolina Sari",
+    "umur" : 22,
+    "nim" : "2217020173",
+    "lulus" : false,
+    "hobby" : ["komik", "makan"],
+    "pembimbing" : "Aditya"
+},
+{ 
+    "nama" : "Dere",
+    "umur" : 22,
+    "nim" : "2217020199",
+    "lulus" : true,
+    "hobby" : ["Baca", "renang"],
+    "pembimbing" : "Teguh Brilian"
+} 
+]

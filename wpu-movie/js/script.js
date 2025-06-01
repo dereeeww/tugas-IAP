@@ -8,7 +8,14 @@ $('#search-button').on('click', function () {
             's': $('#search-input').val()
         },
         success: function (result) {
-            console.log(result);
+            if (result.Response == "True") {
+            } else {
+                $('#movie-list').html(`
+                    <div class="col">
+                        <h1 class="text-center">` + result.Error + `</h1>
+                    </div>
+                `);
+            }
         }
     });
 });

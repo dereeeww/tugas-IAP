@@ -28,7 +28,6 @@ function searchMovie() {
                 });
 
                 $('#search-input').val('');
-
             } else {
                 $('#movie-list').html(`
                     <div class="col">
@@ -55,4 +54,42 @@ $('#search-input').on('keyup', function (e) {
     if (e.keyCode === 13) {
         searchMovie();
     }
+});
+
+
+$('#movie-list').on('click', '.see-detail', function () {
+  const imdbID = $(this).data('id');
+
+  $.ajax({
+    url: 'https://www.omdbapi.com/',
+    dataType: 'json',
+    type: 'get',
+    data: {
+      'apikey': '237728ed',
+      'i': imdbID
+    },
+    success: function (movie) {
+      if (movie.Response === "True") {
+        $('#exampleModalLabel').html(movie.Title);
+
+        $('.modal-body').html(`
+          <div class="row">
+            <div class="col-md-4">
+              <img src="${movie.Poster}" class="img-fluid" alt="${movie.Title}">
+            </div>
+            <div class="col-md-8">
+              <ul class="list-group">
+                <li class="list-group-item"><strong>Title :</strong> ${movie.Title}</li>
+                <li class="list-group-item"><strong>Released :</strong> ${movie.Released}</li>
+                <li class="list-group-item"><strong>Genre :</strong> ${movie.Genre}</li>
+                <li class="list-group-item"><strong>Director :</strong> ${movie.Director}</li>
+                <li class="list-group-item"><strong>Actors :</strong> ${movie.Actors}</li>
+                <li class="list-group-item"><strong>Plot :</strong> ${movie.Plot}</li>
+              </ul>
+            </div>
+          </div>
+        `);
+      }
+    }
+  });
 });

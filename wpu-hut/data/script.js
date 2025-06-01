@@ -19,7 +19,7 @@ $('.nav-link').on('click', function() {
   $(this).addClass('active');
 
   let kategori = $(this).html();
-  $('h1').html(kategori); // Pastikan <h1> ada di HTML
+  $('h1').html(kategori);
 
   $.getJSON('pizza.json', function(data) {
     let menu = data.menu;

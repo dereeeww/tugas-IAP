@@ -10,7 +10,7 @@ $('#search-button').on('click', function () {
         success: function (result) {
             if (result.Response == "True") {
                 let movie = result.Search;
-                $('#movie-list').html(''); // Kosongkan dulu daftar sebelumnya
+                $('#movie-list').html(''); 
 
                 $.each(movie, function (i, data) {
                     $('#movie-list').append(`
@@ -18,14 +18,16 @@ $('#search-button').on('click', function () {
                             <div class="card">
                                 <img src="${data.Poster}" class="card-img-top" alt="${data.Title}">
                                 <div class="card-body">
-                                    <h5 class="card-title">${data.Title}</h5>
+                                    <h5 class="Judul Film">${data.Title}</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">${data.Year}</h6>
-                                    <a href="#" class="btn btn-primary">Show Details</a>
+                                    <a href="#" class="btn btn-primary">See Details</a>
                                 </div>
                             </div>
                         </div>
                     `);
                 });
+
+                $('#search-input').val('');
 
             } else {
                 $('#movie-list').html(`

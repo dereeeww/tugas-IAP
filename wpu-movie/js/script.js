@@ -9,6 +9,9 @@ $('#search-button').on('click', function () {
         },
         success: function (result) {
             if (result.Response == "True") {
+             let movie = result.Search;
+             console.log(movie);
+
             } else {
                 $('#movie-list').html(`
                     <div class="col">

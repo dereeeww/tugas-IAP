@@ -5,10 +5,10 @@ function searchMovie() {
         dataType: 'json',
         data: {
             'apikey': '237728ed',
-            's': $('#search-input').val()
+            's': $('#search-input').val().trim()
         },
         success: function (result) {
-            if (result.Response == "True") {
+            if (result.Response === "True") {
                 let movie = result.Search;
                 $('#movie-list').html('');
 
@@ -20,7 +20,7 @@ function searchMovie() {
                                 <div class="card-body">
                                     <h5 class="card-title">${data.Title}</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">${data.Year}</h6>
-                                    <a href="#" class="btn btn-primary">See Details</a>
+                                    <a href="#" class="btn btn-primary see-detail" data-id="${data.imdbID}" data-toggle="modal" data-target="#exampleModal">See Details</a>
                                 </div>
                             </div>
                         </div>
@@ -36,16 +36,21 @@ function searchMovie() {
                     </div>
                 `);
             }
+        },
+        error: function () {
+            $('#movie-list').html(`
+                <div class="col">
+                    <h1 class="text-center text-danger">Terjadi kesalahan saat memuat data</h1>
+                </div>
+            `);
         }
     });
 }
 
-// Saat tombol diklik
 $('#search-button').on('click', function () {
     searchMovie();
 });
 
-// Saat tombol ENTER ditekan pada input
 $('#search-input').on('keyup', function (e) {
     if (e.keyCode === 13) {
         searchMovie();

@@ -1,3 +1,14 @@
+<?php
+$curl = curl_init();
+curl_setopt($curl, CURLOPT_URL, 'https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&key=AIzaSyAXB98x0NXtBs1Zykb0c4_qLDIPg9jMilI');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+$result = curl_exec($curl);
+curl_close($curl);
+
+$result = json_decode($result, true);
+var_dump($result);
+
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -78,14 +89,52 @@
     </div>
     </div>
     <div class="row justify-content-center">
-          <div class="col-md-5">
-          <h5>WebProgrammingUNPAS</h5>
-          <img src="img/profile2.png" width="100">
-       </div>
-     <div class="col-md-5"></div>
+         <div class="col-md-5">
+         <div class="row mt-3 pb-3">
+     <div class="col-md-4">
+     <img src="img/profile2.png" width="150" class="rounded-circle img-thumbnail">
+      </div>
+      <div class="col-md-8">
+     <h5>WebProgrammingUNPAS</h5>
+     <p>70000 Subscribe</p>
+      </div>
+    </div>
+    <div class="row">
+  <div class="col-md-4">
+    <div class="ratio ratio-16x9">
+      <iframe src="https://www.youtube.com/embed/-BmTKA1xCm8" title="YouTube video" allowfullscreen></iframe>
+    </div>
+  </div>
 </div>
-
-   </section>
+  </div>
+  <div class="col-md-5">
+        <div class="row mt-3 pb-3">
+          <div class="col-md-4">
+            <img src="img/profile2.png" width="150" class="rounded-circle img-thumbnail">
+          </div>
+          <div class="col-md-8">
+            <h5>@sandikagalih</h5>
+            <p>70000 Followers</p>
+          </div>
+        </div>
+        <div class="row mt-3 pb-3">
+  <div class="col">
+    <div class="ig-thumbnail">
+      <img src="img/thumbs/1.png">
+    </div>
+    <div class="ig-thumbnail">
+      <img src="img/thumbs/2.png">
+    </div>
+    <div class="ig-thumbnail">
+      <img src="img/thumbs/1.png">
+    </div>
+  </div>
+</div>
+</div>
+</div>
+    </div>
+  </div>
+</section>
 
 
     <!-- Portfolio -->

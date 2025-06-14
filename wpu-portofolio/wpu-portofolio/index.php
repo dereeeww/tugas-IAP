@@ -1,14 +1,48 @@
 <?php
-$curl = curl_init();
-curl_setopt($curl, CURLOPT_URL, 'https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&key=AIzaSyAXB98x0NXtBs1Zykb0c4_qLDIPg9jMilI');
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-$result = curl_exec($curl);
-curl_close($curl);
+function get_Curl($url)
+{
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_URL, $url);
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER,1);
+  $result = curl_exec($curl);
+  curl_close($curl);
 
-$result = json_decode($result, true);
-var_dump($result);
+  return json_decode($result, true);
+}
+
+$result = get_Curl("https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=UCFQoE23adk7NSPNhBlanu4w&key=AIzaSyAXB98x0NXtBs1Zykb0c4_qLDIPg9jMilI");
+
+$youtubeProfilePic = $result['items'][0]['snippet'] ['thumbnails']['default']['url'];
+$channelName = $result['items'][0]['snippet']['title'];
+$subscriber = $result['items'][0]['statistics']['subscriberCount'];
+
+// API Key dan Channel ID
+$apiKey = "AIzaSyAXB98x0NXtBs1Zykb0c4_qLDIPg9jMilI";
+$channelId = "UCFQoE23adk7NSPNhBlanu4w";
+
+// Ambil video terbaru
+$urlLatestVideo = "https://www.googleapis.com/youtube/v3/search?key=$apiKey&channelId=$channelId&maxResults=1&order=date&part=snippet&type=video";
+$result = get_Curl($urlLatestVideo);
+
+// Simpan video ID untuk digunakan di section social media
+if (isset($result['items'][0]['id']['videoId'])) {
+    $latestVideoId = $result['items'][0]['id']['videoId'];
+} else {
+    $latestVideoId = null;
+}
+
+// Data Instagram dari code 2 (hardcoded seperti di code 2)
+$usernameIG = "@sandikagalih";
+$profilePictureIG = "img/profile1.png"; // Menggunakan gambar yang sama seperti di code 2
+$followersIG = "70000";
+
+// Gambar Instagram dari code 2
+$gambar1 = "img/thumbs/1.png";
+$gambar2 = "img/thumbs/2.png";
+$gambar3 = "img/thumbs/1.png"; // Menggunakan gambar yang sama seperti di code 2
 
 ?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -28,7 +62,7 @@ var_dump($result);
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#home">Sandhika Galih</a>
+        <a class="navbar-brand" href="#home">Desy Reolina Sari</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -48,17 +82,15 @@ var_dump($result);
       </div>
     </nav>
 
-
     <div class="jumbotron" id="home">
       <div class="container">
         <div class="text-center">
-          <img src="img/profile1.png" class="rounded-circle img-thumbnail">
-          <h1 class="display-4">Sandhika Galih</h1>
-          <h3 class="lead">Lecturer | Programmer | Youtuber</h3>
+          <img src="img/dere.png" class="rounded-circle img-thumbnail">
+          <h1 class="display-4">Desy Reolina Sari</h1>
+          <h3 class="lead">Lecturer | Programmer | Desainer</h3>
         </div>
       </div>
     </div>
-
 
     <!-- About -->
     <section class="about" id="about">
@@ -70,72 +102,76 @@ var_dump($result);
         </div>
         <div class="row justify-content-center">
           <div class="col-md-5">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, molestiae sunt doloribus error ullam expedita cumque blanditiis quas vero, qui, consectetur modi possimus. Consequuntur optio ad quae possimus, debitis earum.</p>
+            <p>I am a UI/UX designer dedicated to creating digital experiences that are intuitive, functional, and visually appealing. With a background in web development and graphic design, along with a deep understanding of user behavior, I design interfaces that are not only aesthetically pleasing but also easy to navigate. I apply user-centered design principles in every project, from wireframes to interactive prototypes. Proficient in tools like Figma and Adobe XD, I deliver efficient and collaborative design solutions. In addition, my skills in visual storytelling through videography and photography enhance the overall digital product experience. As a creative professional, I am committed to crafting design solutions that elevate user experiences and strengthen brand identity in the digital age.</p>
           </div>
           <div class="col-md-5">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, molestiae sunt doloribus error ullam expedita cumque blanditiis quas vero, qui, consectetur modi possimus. Consequuntur optio ad quae possimus, debitis earum.</p>
+            <p>Saya adalah seorang desainer UI/UX yang berfokus pada menciptakan pengalaman digital yang intuitif, fungsional, dan estetis. Dengan latar belakang dalam web development, desain grafis, serta pemahaman mendalam terhadap perilaku pengguna, saya merancang antarmuka yang tidak hanya menarik secara visual tetapi juga mudah digunakan. Saya terbiasa menerapkan prinsip desain berbasis pengguna (user-centered design) dalam setiap proyek, mulai dari wireframe hingga prototipe interaktif. Keahlian saya dalam tools seperti Figma dan Adobe XD membantu saya menghasilkan desain yang efisien dan kolaboratif. Selain itu, saya juga memiliki kemampuan dalam visual storytelling melalui videografi dan fotografi yang memperkuat nilai estetika dari produk digital. Sebagai profesional kreatif, saya berkomitmen untuk menciptakan solusi desain yang meningkatkan pengalaman pengguna dan memperkuat identitas merek di era digital.</p>
           </div>
         </div>
       </div>
     </section>
 
-      <!-- Youtube & IG -->
-       <section class="social bg-light" id="social">
-  <div class="container">
-    <div class="row pt-4 mb-4">
-    <div class="col text-center">
-      <h2>Social Media</h2>
-    </div>
-    </div>
-    </div>
-    <div class="row justify-content-center">
-         <div class="col-md-5">
-         <div class="row mt-3 pb-3">
-     <div class="col-md-4">
-     <img src="img/profile2.png" width="150" class="rounded-circle img-thumbnail">
-      </div>
-      <div class="col-md-8">
-     <h5>WebProgrammingUNPAS</h5>
-     <p>70000 Subscribe</p>
-      </div>
-    </div>
-    <div class="row">
-  <div class="col-md-4">
-    <div class="ratio ratio-16x9">
-      <iframe src="https://www.youtube.com/embed/-BmTKA1xCm8" title="YouTube video" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-  </div>
-  <div class="col-md-5">
-        <div class="row mt-3 pb-3">
-          <div class="col-md-4">
-            <img src="img/profile2.png" width="150" class="rounded-circle img-thumbnail">
-          </div>
-          <div class="col-md-8">
-            <h5>@sandikagalih</h5>
-            <p>70000 Followers</p>
+    <!-- Youtube & IG -->
+    <section class="social bg-light" id="social">
+      <div class="container">
+        <div class="row pt-4 mb-4">
+          <div class="col text-center">
+            <h2>Social Media</h2>
           </div>
         </div>
-        <div class="row mt-3 pb-3">
-  <div class="col">
-    <div class="ig-thumbnail">
-      <img src="img/thumbs/1.png">
-    </div>
-    <div class="ig-thumbnail">
-      <img src="img/thumbs/2.png">
-    </div>
-    <div class="ig-thumbnail">
-      <img src="img/thumbs/1.png">
-    </div>
-  </div>
-</div>
-</div>
-</div>
-    </div>
-  </div>
-</section>
 
+        <div class="row justify-content-center">
+          <div class="col-md-5">
+            <div class="row">
+              <div class="col md-4">
+                <img src="<?= $youtubeProfilePic; ?>" width="200" class="rounded-circle img-thumbnail">
+              </div>
+              <div class="col-md-8">
+                <h5><?= $channelName; ?></h5>
+                <p><?= $subscriber; ?> Subscriber.</p>
+                <div class="g-ytsubscribe" data-channelid="UC5djXA3ShHS9_Z12sB5QQ9Q" data-layout="default" data-count="default"></div>
+              </div>
+            </div>
+            <div class="row mt-3 pb-3">
+              <div class="col">
+                <?php if ($latestVideoId): ?>
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/<?= $latestVideoId; ?>" allowfullscreen></iframe>
+                </div>
+                <?php else: ?>
+                <p>Video terbaru tidak ditemukan.</p>
+                <?php endif; ?>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <!-- Instagram section dari code 2 -->
+            <div class="row mt-3 pb-3">
+              <div class="col-md-4">
+                <img src="<?= $profilePictureIG; ?>" width="150" class="rounded-circle img-thumbnail">
+              </div>
+              <div class="col-md-8">
+                <h5><?= $usernameIG ?></h5>
+                <p><?= $followersIG ?> Followers</p>
+              </div>
+            </div>
+            <div class="row mt-3 pb-3">
+              <div class="col">
+                <div class="ig-thumbnail">
+                  <img src="<?= $gambar1; ?>">
+                </div>
+                <div class="ig-thumbnail">
+                  <img src="<?= $gambar2; ?>">
+                </div>
+                <div class="ig-thumbnail">
+                  <img src="<?= $gambar3; ?>">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Portfolio -->
     <section class="portfolio" id="portfolio">
@@ -205,7 +241,6 @@ var_dump($result);
       </div>
     </section>
 
-
     <!-- Contact -->
     <section class="contact bg-light" id="contact">
       <div class="container">
@@ -233,7 +268,6 @@ var_dump($result);
           </div>
 
           <div class="col-lg-6">
-            
             <form>
               <div class="form-group">
                 <label for="nama">Nama</label>
@@ -255,12 +289,10 @@ var_dump($result);
                 <button type="button" class="btn btn-primary">Send Message</button>
               </div>
             </form>
-
           </div>
         </div>
       </div>
     </section>
-
 
     <!-- footer -->
     <footer class="bg-dark text-white mt-5">
@@ -273,16 +305,11 @@ var_dump($result);
       </div>
     </footer>
 
-
-
-
-
-
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="https://apis.google.com/js/platform.js"></script>
   </body>
 </html>
